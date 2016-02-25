@@ -13,7 +13,8 @@ var gulp = require('gulp'),
     rev = require('gulp-rev'),
     browserSync = require('browser-sync'),
     del = require('del'),
-    ngannotate = require('gulp-ng-annotate');;
+    ngannotate = require('gulp-ng-annotate'),
+    ghPages = require('gulp-gh-pages');
 
 gulp.task('jshint', function() {
   return gulp.src('app/scripts/**/*.js')
@@ -54,6 +55,11 @@ gulp.task('copyfonts', ['clean'], function() {
    .pipe(gulp.dest('./dist/fonts'));
    gulp.src('./bower_components/bootstrap/dist/fonts/**/*.{ttf,woff,eof,svg}*')
    .pipe(gulp.dest('./dist/fonts'));
+});
+
+gulp.task('deploy', function() {
+    return gulp.src('./dist/**/*')
+        .pipe(ghPages());
 });
 
 // Watch
